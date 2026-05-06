@@ -46,9 +46,12 @@ deactivate
 
 ---
 
-## Step 1: Learn Flask (Start Here)
+## Step 1: Learn Flask (Optional — You Already Know This!)
 
-Flask is the simplest framework. Learn it first.
+> **You can skip this step** if you already learned Flask in class. Jump to Step 2 (Django).
+> This is here as a reference if you want to review or practice.
+
+Flask is the simplest framework.
 
 ### Setup
 ```bash
