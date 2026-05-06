@@ -18,6 +18,32 @@ A full-stack app for collecting and analyzing restaurant menu data.
 - Node.js 20.19+ or 22.12+ (required by TailwindCSS v4)
 - npm 10+
 
+#### Installing Node.js 20 on Amazon Linux / EC2
+
+The default `dnf install nodejs` gives you Node 18 which is **too old**. Use NodeSource instead:
+
+```bash
+# Remove old Node if installed
+sudo dnf remove -y nodejs npm
+
+# Add NodeSource repo and install Node 20
+curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
+sudo dnf install -y nodejs
+
+# Verify
+node -v   # should show v20.x
+npm -v    # should show 10.x
+```
+
+#### Installing Node.js on macOS
+
+```bash
+# Using Homebrew
+brew install node@20
+```
+
+Or download from https://nodejs.org (LTS version).
+
 ---
 
 ## Backend Setup
