@@ -46,7 +46,45 @@ Or download from https://nodejs.org (LTS version).
 
 ---
 
-## Backend Setup
+## Running on EC2
+
+Full setup from a fresh Amazon Linux EC2 instance:
+
+```bash
+# 1. Install dependencies
+sudo dnf update -y
+sudo dnf install -y git python3 python3-pip
+
+# Install Node.js 20 (required for frontend)
+curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
+sudo dnf install -y nodejs
+
+# 2. Clone the repo
+git clone https://github.com/ronhadad22/IITC-2026.git
+cd IITC-2026/DataBite
+
+# 3. Start the backend (in one terminal)
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+# 4. Start the frontend (in another terminal)
+cd ~/IITC-2026/DataBite/frontend
+npm install
+npm run dev -- --host 0.0.0.0
+```
+
+> **Security Group:** Make sure ports **5173** and **8000** are open for inbound traffic.
+
+Then open `http://YOUR_EC2_PUBLIC_IP:5173` in your browser.
+
+---
+
+## Running Locally
+
+### Backend
 
 ```bash
 cd backend
@@ -56,10 +94,23 @@ pip install -r requirements.txt
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-- **Local:** http://localhost:8000
-- **EC2 / Remote:** http://YOUR_IP:8000 (make sure port 8000 is open in your security group)
+- **App:** http://localhost:8000
 - **Swagger Docs:** http://localhost:8000/docs
 - **ReDoc:** http://localhost:8000/redoc
+
+### Frontend
+
+> **Note:** Requires Node.js 20.19+. Check with `node -v`.
+
+```bash
+cd frontend
+npm install
+npm run dev -- --host 0.0.0.0
+```
+
+- **App:** http://localhost:5173
+
+Make sure the backend is running first. The frontend auto-detects the API URL based on the hostname.
 
 ### API Endpoints
 
@@ -71,23 +122,6 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 | GET | `/api/menu-items` | All menu items (filterable) |
 | GET | `/api/menu-items?restaurant=X` | Filter by restaurant |
 | GET | `/api/menu-items?category=X` | Filter by category |
-
----
-
-## Frontend Setup
-
-> **Note:** Requires Node.js 20.19+. Check with `node -v`.
-
-```bash
-cd frontend
-npm install
-npm run dev -- --host 0.0.0.0
-```
-
-- **Local:** http://localhost:5173
-- **EC2 / Remote:** http://YOUR_IP:5173 (make sure port 5173 is open in your security group)
-
-The frontend connects to the backend at `http://localhost:8000`. Make sure the backend is running first.
 
 ### Features
 - Dashboard with live stats
