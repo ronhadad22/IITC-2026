@@ -80,10 +80,11 @@ uvicorn main:app --reload --port 8000
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run dev -- --host 0.0.0.0
 ```
 
-- **App:** http://localhost:5173
+- **Local:** http://localhost:5173
+- **EC2 / Remote:** http://YOUR_IP:5173 (make sure port 5173 is open in your security group)
 
 The frontend connects to the backend at `http://localhost:8000`. Make sure the backend is running first.
 
