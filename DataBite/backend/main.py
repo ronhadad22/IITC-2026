@@ -1,3 +1,5 @@
+from typing import List, Optional
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -85,7 +87,7 @@ def get_stats():
     )
 
 
-@app.get("/api/restaurants", response_model=list[Restaurant])
+@app.get("/api/restaurants", response_model=List[Restaurant])
 def get_restaurants():
     return RESTAURANTS
 
@@ -98,8 +100,8 @@ def get_restaurant(restaurant_id: int):
     return {"error": "Restaurant not found"}
 
 
-@app.get("/api/menu-items", response_model=list[MenuItem])
-def get_menu_items(restaurant: str | None = None, category: str | None = None):
+@app.get("/api/menu-items", response_model=List[MenuItem])
+def get_menu_items(restaurant: Optional[str] = None, category: Optional[str] = None):
     items = MENU_ITEMS
     if restaurant:
         items = [i for i in items if i.restaurant.lower() == restaurant.lower()]
