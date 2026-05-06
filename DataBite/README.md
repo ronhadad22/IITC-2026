@@ -53,10 +53,11 @@ cd backend
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-- **App:** http://localhost:8000
+- **Local:** http://localhost:8000
+- **EC2 / Remote:** http://YOUR_IP:8000 (make sure port 8000 is open in your security group)
 - **Swagger Docs:** http://localhost:8000/docs
 - **ReDoc:** http://localhost:8000/redoc
 
